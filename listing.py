@@ -19,4 +19,4 @@ class Listing(Base):
     date = Column(String)
 
     def __str__(self):
-        print("{} => {} SEK/Month {}m2 {}rooms @{} -- {}".format(name, price, size, rooms, location, date))
+        return "[{}] => {} SEK/Month {}m2 with {}rooms @{} -- {}".format(self.name, self.price, self.size, self.rooms, self.location, self.date)

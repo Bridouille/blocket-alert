@@ -45,19 +45,15 @@ def getNewResults():
     # Instantiate the SQlite db
     db = Db("listings.db")
 
-    print("number of results : {}".format(len(results)))
-    print(settings.SEARCH_OPTIONS)
-
     # We filter the results with our search criteria and remove the ones we already saw
     for res in results:
         if matchesFilters(res, settings.SEARCH_OPTIONS, settings.PREFERED_NEIGHBOORHOODS) and not db.isPresent(res.blocket_id):
             filteredResults.append(res)
 
     # We add the new filtered results to the db, and send a slack message
-    print("Filtered results : ")
     for res in filteredResults:
+        print("Adding result to db => " + str(res))
         db.add(res)
-        print(res)
 
 if __name__ == '__main__':
     # main loop
