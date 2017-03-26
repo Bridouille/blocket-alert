@@ -1,9 +1,11 @@
 ## :bell: Blocket alert ##
 
-This repo contains the code of a Blocket scrapper that sends Slack messages whenever it find an ad that suits your needs. The main advantages are :
+This repo contains the code of a Blocket scrapper that sends Slack messages whenever it find an ad that suits your needs, in real-time. The idea comes from [this repo](https://github.com/VikParuchuri/apartment-finder) that does the same for Craigslist. The main advantages are :
 
  - :clock7: It can send you a message **directly** when a new ad is added on Blocket, which can increase your chances to get a response from a landlord since you will be in the first persons contacting them. No need to check 3 times a day anymore.
  - :thumbsup: It can filter ads for you based on some criteria. Instead of filtering yourself everytime (price, location...) this program does it for you and don't alert you when an ad doesn't suit your needs.
+
+This is how the messages looks like:
 
 ![A screenshot of the aspect of the received messages](.screens/bot_msg.png)
 
