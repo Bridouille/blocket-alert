@@ -53,6 +53,12 @@ Here are the most important variable to look at when using this scrapper:
  7. Grant execution permission on the scrapper `chmod +x scrapper.py`
  8. Run it and your good to go `./scrapper.py`
 
+**Tips to launch the script**
+
+You can use [forever](https://github.com/foreverjs/forever) to run this script.
+
+    forever start -c python3 ./scrapper.py
+
 ## :chart_with_upwards_trend: Todos ##
 
  1. Send a link with the location on Google maps, so we can quickly see where the flat is located

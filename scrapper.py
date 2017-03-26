@@ -3,6 +3,7 @@
 import settings
 import listing
 import time
+import sys
 from db import Db
 from blocket import BlocketHousingRent
 from slackclient import SlackClient
@@ -74,6 +75,8 @@ def getNewResults(bc, sc, db):
 
 # Main loop either sleep here or add this to a crontab
 if __name__ == '__main__':
+    sys.stdout = open(settings.LOG_FILE, 'w')
+
     # Create a slack client
     sc = SlackClient(settings.SLACK_API_TOKEN)
 

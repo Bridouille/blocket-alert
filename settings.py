@@ -39,3 +39,6 @@ SLEEP_INTERVAL = 10 * 60
 # Slack Integration
 SLACK_API_TOKEN = os.environ["SLACK_API_TOKEN"]
 SLACK_CHANNEL = '@nicolas' # Can also be a channel, '#housing' for example
+
+# Logging file
+LOG_FILE = 'logs'
