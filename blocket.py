@@ -85,7 +85,7 @@ class BlocketHousingRent:
                 sizeSpan = details.find('span', { 'class' : 'size'})
                 size = int(float(sizeSpan.text.strip()[:-3].replace(',', '.')) // 1) if sizeSpan is not None else -1
                 roomsSpan = details.find('span', { 'class' : 'rooms'})
-                rooms = float(roomsSpan.text.strip()[:-4].replace(',', '.')) if roomsSpan is not None else -1
+                rooms = float(roomsSpan.text.strip()[:-4].replace(',', '.').replace('+', '')) if roomsSpan is not None else -1
 
                 # Retrive the date when the ad was posted
                 dateTime = item.find('time', { 'class' : 'jlist_date_image' })

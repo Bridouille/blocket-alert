@@ -16,7 +16,7 @@ SEARCH_OPTIONS = {
 CITY = "stockholm"
 
 # The prefered neighboorhoods
-# If not empty, will only filter offers from theses neighboorhoods
+# If not empty, will ONLY filter offers from theses neighboorhoods
 # PREFERED_NEIGHBOORHOODS = [
 #     'Vasastan',
 #     'Norrmalm',
@@ -24,9 +24,18 @@ CITY = "stockholm"
 # ]
 PREFERED_NEIGHBOORHOODS = [ ]
 
-# How often should we check, in seconds
-SLEEP_INTERVAL = 20 * 60
+# The excluded neighboorhoods
+# If not empty, will ignore the offers from  theses neighboorhoods
+EXCLUDED_NEIGHBOORHOODS = [
+    'Täby',
+    'Sollentuna',
+    'Österåker',
+    'Älvsjö'
+]
+
+# How often should we check, in seconds, here 10mn
+SLEEP_INTERVAL = 10 * 60
 
 # Slack Integration
 SLACK_API_TOKEN = os.environ["SLACK_API_TOKEN"]
-SLACK_CHANNEL = '@nicolas'
+SLACK_CHANNEL = '@nicolas' # Can also be a channel, '#housing' for example
