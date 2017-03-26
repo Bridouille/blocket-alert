@@ -15,6 +15,6 @@ class Db:
 
     def add(self, listing):
         if self.echo:
-            print("Adding result to db => " + str(listing))
+            print("Adding result to db >> " + str(listing))
         self.session.add(listing)
         self.session.commit()

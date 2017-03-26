@@ -2,6 +2,7 @@
 
 import settings
 import listing
+import time
 from db import Db
 from blocket import BlocketHousingRent
 from slackclient import SlackClient
@@ -51,7 +52,7 @@ def postMessageOnSlack(sc, result):
 
 def getNewResults():
     # Get the results from blocket
-    client = BlocketHousingRent("stockholm")
+    client = BlocketHousingRent(settings.CITY)
     results = client.getResults(settings.SEARCH_OPTIONS, withImg = True, limit = 30)
     filteredResults = [ ]
 
@@ -74,6 +75,7 @@ def getNewResults():
 # Main loop either sleep here or add this to a crontab
 if __name__ == '__main__':
     while True:
+        print("{} >> Time to get new results for {}".format(time.ctime(), settings.CITY.upper()))
         getNewResults()
-        break
-    # time.sleep(settings.SLEEP_INTERVAL)
+        print("{} >> Sleeping for {} sconds..".format(time.ctime(), settings.SLEEP_INTERVAL))
+        time.sleep(settings.SLEEP_INTERVAL)
