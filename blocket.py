@@ -50,7 +50,7 @@ class BlocketHousingRent:
     #     minRooms : 1.5,
     #     minBedrooms : 2
     # }
-    def getResults(self, options = {}, withImg = False, limit = 20):
+    def getResults(self, options = {}, withImg = False, limit = 30):
         results = [ ]
         page = 0
 

@@ -4,6 +4,7 @@ import settings
 import listing
 from db import Db
 from blocket import BlocketHousingRent
+from slackclient import SlackClient
 
 # Thoses constants will be used if a field is not present in the SEARCH_OPTIONS
 DEFAULT_MAX_PRICE = 100000 # 100 000 SEK / monthly_rent
@@ -36,14 +37,28 @@ def matchesFilters(result, options, neighboorhoods):
 
     return True
 
+def postMessageOnSlack(sc, result):
+    desc = "{0} | {1} | {2} | {3} | <{4}>".format(result.name, result.price, result.rooms, result.size, result.link)
+    resp = sc.api_call(
+        "chat.postMessage",
+        channel = '@nicolas',
+        text = desc,
+        username = 'Blocket-Alert',
+        icon_emoji = ':robot_face:'
+    )
+    print(resp)
+
 def getNewResults():
     # Get the results from blocket
     client = BlocketHousingRent("stockholm")
-    results = client.getResults(settings.SEARCH_OPTIONS, withImg = True, limit = 10)
+    results = client.getResults(settings.SEARCH_OPTIONS, withImg = True, limit = 1)
     filteredResults = [ ]
 
     # Instantiate the SQlite db
-    db = Db("listings.db")
+    db = Db("listings.db", echo = True)
+
+    # Create a slack client
+    sc = SlackClient(settings.SLACK_API_TOKEN)
 
     # We filter the results with our search criteria and remove the ones we already saw
     for res in results:
@@ -52,11 +67,11 @@ def getNewResults():
 
     # We add the new filtered results to the db, and send a slack message
     for res in filteredResults:
-        print("Adding result to db => " + str(res))
         db.add(res)
+        postMessageOnSlack(sc, res)
 
+# Main loop either sleep here or add this to a crontab
 if __name__ == '__main__':
-    # main loop
     while True:
         getNewResults()
         break
