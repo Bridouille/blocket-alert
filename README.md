@@ -1,9 +1,11 @@
-## :heavy_exclamation_mark: Blocket alert ##
+## :bell: Blocket alert ##
 
 This repo contains the code of a Blocket scrapper that sends Slack messages whenever it find an ad that suits your needs. The main advantages are :
 
- - :clock7: It can send you a message **directly** when a new ad is added on Blocket, which can increase your chances to get a response from a landlord since you will be in the first persons contacting them.
- - :thumbsup: It can filter ads for you based on some criteria. Instead of filtering yourself everytime (price, location...) this program does it for you.
+ - :clock7: It can send you a message **directly** when a new ad is added on Blocket, which can increase your chances to get a response from a landlord since you will be in the first persons contacting them. No need to check 3 times a day anymore.
+ - :thumbsup: It can filter ads for you based on some criteria. Instead of filtering yourself everytime (price, location...) this program does it for you and don't alert you when an ad doesn't suit your needs.
+
+![A screenshot of the aspect of the received messages](.screens/bot_msg.png)
 
 This scrapper **only works with the renting** part in the housing section of Blocket. The buying market or anything else are not a part of it. Feel free to submit a PR to include them as well!
 
@@ -31,7 +33,7 @@ Here are the most important variable to look at when using this scrapper:
 	   'Sollentuna'
 	]
 
-	SLACK_CHANNEL = '@nicolas'
+	SLACK_CHANNEL = '@nicolas' # can also be a channel '#housing' for example
 
 ## :floppy_disk: Installation ##
 
@@ -40,7 +42,7 @@ Here are the most important variable to look at when using this scrapper:
  1. For the scrapper to post on Slack you need to create an "App" for Slack [here](https://api.slack.com/apps) and associate it to the team you want the scrapper to post on.
  2. Once you have created your app, go to the "**Basic Information**" tab and click on "**Add features and functionality**" and under "**Permissions**" add the "**Send message as User**" and "**Send message as [App Name]**" in the "**Permission Scopes**"
  3. Under the "OAuth & Permissions" tab copy the OAuth access Token to your clipboard.
- 4. Set it in the appropriate environment variable `export SLACK_API_TOKEN={Your OAuth token here}`
+ 4. Set it in the appropriate environment variable `export SLACK_API_TOKEN="Your OAuth token here"`
 
 **Python requirements**
 
