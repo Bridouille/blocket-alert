@@ -38,20 +38,21 @@ def matchesFilters(result, options, neighboorhoods):
     return True
 
 def postMessageOnSlack(sc, result):
-    desc = "{0} | {1} | {2} | {3} | <{4}>".format(result.name, result.price, result.rooms, result.size, result.link)
+    desc = ":house: [{}] in *{}* -- {}\n".format(result.name, result.location, result.date)
+    desc += ":moneybag: *{}* SEK/month for *{}* m2 and *{}* rooms\n".format(result.price, result.size, result.rooms)
+    desc += "See more :point_right: <{}>\n".format(result.link)
     resp = sc.api_call(
         "chat.postMessage",
-        channel = '@nicolas',
+        channel = settings.SLACK_CHANNEL,
         text = desc,
         username = 'Blocket-Alert',
         icon_emoji = ':robot_face:'
     )
-    print(resp)
 
 def getNewResults():
     # Get the results from blocket
     client = BlocketHousingRent("stockholm")
-    results = client.getResults(settings.SEARCH_OPTIONS, withImg = True, limit = 1)
+    results = client.getResults(settings.SEARCH_OPTIONS, withImg = True, limit = 30)
     filteredResults = [ ]
 
     # Instantiate the SQlite db
