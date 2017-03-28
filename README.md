@@ -61,6 +61,4 @@ You can use [forever](https://github.com/foreverjs/forever) to run this script.
 
 ## :chart_with_upwards_trend: Todos ##
 
- 1. Send a link with the location on Google maps, so we can quickly see where the flat is located
- 2. Add a filtering option wheter there is a phone number or not, to only show ads with phone numbers for example
- 3. Add other part of Blocket, not only the rentals
+ 1. Add other part of Blocket, not only the rentals
