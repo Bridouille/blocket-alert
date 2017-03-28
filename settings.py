@@ -40,7 +40,7 @@ EXCLUDED_NEIGHBOORHOODS = [
     'Årsta'
 ]
 
-# How often should we check, in seconds, here 10mn
+# How often should we check, in seconds
 SLEEP_INTERVAL = 5 * 60
 
 # Slack Integration
