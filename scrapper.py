@@ -33,7 +33,7 @@ def matchesFilters(result):
     if len(settings.PREFERED_NEIGHBOORHOODS) > 0:
         goodLocation = False
         for neighboorhood in settings.PREFERED_NEIGHBOORHOODS:
-            if neighboorhood in result.location:
+            if neighboorhood in result.location.split():
                 goodLocation = True
                 break
         if not goodLocation:
@@ -42,15 +42,18 @@ def matchesFilters(result):
     # If the location is on a neighboorhood we don't want to live in, ignore it
     if len(settings.EXCLUDED_NEIGHBOORHOODS) > 0:
         for neighboorhood in settings.EXCLUDED_NEIGHBOORHOODS:
-            if neighboorhood in result.location:
+            if neighboorhood in result.location.split():
                 return False
 
     return True
 
-def postMessageOnSlack(sc, result):
+def postMessageOnSlack(sc, result, adress):
     desc = ":house: [{}] in *{}* -- posted at {}\n".format(result.name, result.location, result.date)
     desc += ":moneybag: *{}* SEK/month for *{}* m2 and *{}* rooms\n".format(result.price, result.size, result.rooms)
-    desc += "See more :point_right: <{}>\n".format(result.link)
+    desc += "See more :point_right: <{}|blocket link>".format(result.link)
+    if len(adress) > 0:
+        desc += " location :earth_americas: <{}|map>".format("http://maps.google.com/?q={}".format(adress))
+    desc += '\n'
     resp = sc.api_call(
         "chat.postMessage",
         channel = settings.SLACK_CHANNEL,
@@ -70,8 +73,8 @@ def getNewResults(bc, sc, db):
 
     # We add the new filtered results to the db, and send a slack message
     for res in filteredResults:
+        postMessageOnSlack(sc, res, bc.getAdress(res.link)) # We only get the adress after we filtered everything
         db.add(res)
-        postMessageOnSlack(sc, res)
 
 # Main loop either sleep here or add this to a crontab
 if __name__ == '__main__':

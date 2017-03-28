@@ -34,11 +34,14 @@ EXCLUDED_NEIGHBOORHOODS = [
     'Vallentuna',
     'Nacka',
     'Kista',
-    'Tensta'
+    'Tensta',
+    'Sickla',
+    'Huddinge',
+    'Årsta'
 ]
 
 # How often should we check, in seconds, here 10mn
-SLEEP_INTERVAL = 10 * 60
+SLEEP_INTERVAL = 5 * 60
 
 # Slack Integration
 SLACK_API_TOKEN = os.environ["SLACK_API_TOKEN"]

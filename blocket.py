@@ -19,20 +19,17 @@ class BlocketHousingRent:
     # Return the corresponding GET parameter for blocket
     def getMinSize(self, minSize = 0):
         if minSize < 0:
-            return 0
+            return self.DEFAULT_MIN_SIZE
         return minSize // 10 - 1 if minSize // 10 - 1 <= 17 else 17 # 17 = 180m2
 
     # Get the number of rooms and return the corresponding GET parameter for blocket
     def getMinRooms(self, minRooms = 1):
         if minRooms < 0:
-            return 1
-        try:
-            return self.roomsToRos[str(minRooms)]
-        except KeyError:
-            return 1
+            return self.DEFAULT_MIN_ROOMS
+        return self.roomsToRos.get(str(minRooms), self.DEFAULT_MIN_ROOMS)
 
     # Get the options in the settings and return the proper GET query parameters
-    def formatQueryParameters(self, options = {}, page = 0):
+    def formatQueryParameters(self, options = {}, page = 1):
         payload = {
             'ss' : self.getMinSize(options.get('minSize', self.DEFAULT_MIN_SIZE)),
             'ros' : self.getMinRooms(options.get('minRooms', self.DEFAULT_MIN_ROOMS)),
@@ -52,7 +49,7 @@ class BlocketHousingRent:
     # }
     def getResults(self, options = {}, withImg = False, limit = 30):
         results = [ ]
-        page = 0
+        page = 1
 
         while len(results) < limit:
             payload = self.formatQueryParameters(options, page)
@@ -105,3 +102,11 @@ class BlocketHousingRent:
                 results.append(result)
 
         return results
+
+    # Make a request to the given link and extract the adress if any, to form a google maps link
+    def getAdress(self, link):
+        r = requests.get(link)
+        soup = BeautifulSoup(r.content, 'html.parser')
+
+        adress = soup.find('ul', { 'class' : 'body-links' }).find('h3', { 'class' : 'h5' }).text.strip()
+        return adress
