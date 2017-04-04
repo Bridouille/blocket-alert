@@ -15,6 +15,8 @@ DEFAULT_MAX_ROOMS = 13
 DEFAULT_MIN_ROOMS = 1
 DEFAULT_MAX_SIZE = 400
 DEFAULT_MIN_SIZE = 10
+DEFAULT_MIN_SQUARE_METER_PRICE = 50
+DEFAULT_MAX_SQUARE_METER_PRICE = 1000
 
 # Returns True if the given result matches the given search options
 def matchesFilters(result):
@@ -29,13 +31,8 @@ def matchesFilters(result):
     if not options.get('minSize', DEFAULT_MIN_SIZE) < result.size < options.get('maxSize', DEFAULT_MAX_SIZE):
         return False
 
-
-    minSquareMeterPrice = options.get('minSquareMeterPrice')
-    maxSquareMeterPrice = options.get('maxSquareMeterPrice')
-    # Optional arguments, we only do this if the user cares about both the minimum and maximum m2 price
-    if minSquareMeterPrice and maxSquareMeterPrice:
-        if not minSquareMeterPrice < round(result.price/result.size) < maxSquareMeterPrice:
-            return False
+    if not options.get('minSquareMeterPrice', DEFAULT_MIN_SQUARE_METER_PRICE) < round(result.price/result.size) < options.get('maxSquareMeterPrice', DEFAULT_MAX_SQUARE_METER_PRICE):
+        return False
 
     # If we have prefered neighboorhoods we check if the location is in one of them
     if len(settings.PREFERED_NEIGHBOORHOODS) > 0:
