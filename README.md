@@ -49,9 +49,11 @@ Here are the most important variable to look at when using this scrapper:
 **Python requirements**
 
  5. Install Python3 and Python3 pip
- 6. Install all the Python3 necessary packages `pip3 install BeautifulSoup4 requests sqlalchemy slackclient`
+ 6. Install all the Python3 necessary packages `pip3 install -r requirements.txt`
  7. Grant execution permission on the scrapper `chmod +x scrapper.py`
  8. Run it and your good to go `./scrapper.py`
+
+ It is recommended to create a virtual environment using virtualenv for this.
 
 **Tips to launch the script**
 

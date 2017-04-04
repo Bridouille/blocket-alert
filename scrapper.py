@@ -15,18 +15,23 @@ DEFAULT_MAX_ROOMS = 13
 DEFAULT_MIN_ROOMS = 1
 DEFAULT_MAX_SIZE = 400
 DEFAULT_MIN_SIZE = 10
+DEFAULT_MIN_SQUARE_METER_PRICE = 50
+DEFAULT_MAX_SQUARE_METER_PRICE = 1000
 
 # Returns True if the given result matches the given search options
 def matchesFilters(result):
     options = settings.SEARCH_OPTIONS
 
-    if result.price > options.get('maxPrice', DEFAULT_MAX_PRICE) or result.price < options.get('minPrice', DEFAULT_MIN_PRICE):
+    if not options.get('minPrice', DEFAULT_MIN_PRICE) < result.price < options.get('maxPrice', DEFAULT_MAX_PRICE):
         return False
 
-    if result.rooms > options.get('maxRooms', DEFAULT_MAX_ROOMS) or result.rooms < options.get('minRooms', DEFAULT_MIN_ROOMS):
+    if not options.get('minRooms', DEFAULT_MIN_ROOMS) < result.rooms < options.get('maxRooms', DEFAULT_MAX_ROOMS):
         return False
 
-    if result.size > options.get('maxSize', DEFAULT_MAX_SIZE) or result.size < options.get('minSize', DEFAULT_MIN_SIZE):
+    if not options.get('minSize', DEFAULT_MIN_SIZE) < result.size < options.get('maxSize', DEFAULT_MAX_SIZE):
+        return False
+
+    if not options.get('minSquareMeterPrice', DEFAULT_MIN_SQUARE_METER_PRICE) < round(result.price/result.size) < options.get('maxSquareMeterPrice', DEFAULT_MAX_SQUARE_METER_PRICE):
         return False
 
     # If we have prefered neighboorhoods we check if the location is in one of them
