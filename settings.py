@@ -9,7 +9,9 @@ SEARCH_OPTIONS = {
     'maxRooms' : 3, # maximum number of rooms
     'minBedrooms' : 1, # minimum number of bedrooms, the maximum can't be set as it's not appearing in the blocket results
     'minSize' : 20, # minimum size in square meters
-    'maxSize' : 60 # maximum size in square meters
+    'maxSize' : 60, # maximum size in square meters
+    'minSquareMeterPrice': None,
+    'maxSquareMeterPrice': None,
 }
 
 # The city to search in Blocket.se
